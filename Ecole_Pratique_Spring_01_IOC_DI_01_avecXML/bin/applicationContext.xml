@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+<context:property-placeholder location="classpath:musicien.properties" /> 
+    
+    
+    <!-- creation des dépendances -->
+    
+    <bean id="onePrepareService" class="com.servicedemo.ZenPreparation"></bean>
+    <bean id="twoPrepareService" class="com.servicedemo.TapeDansLesMursPreparation"></bean>
+    <bean id="threePrepareService" class="com.servicedemo.ViolonPreparation"></bean>
+    
+    <!-- creation des beans -->
+    
+    <!-- avec constructeur (voir les classes Pianiste et Guitariste) -->
+    
+    <bean id="monMusicien" class="com.springdemo.Pianiste">
+    	<constructor-arg ref="onePrepareService"></constructor-arg>
+    </bean>
+    
+    <bean id="monAutreMusicien" class="com.springdemo.Guitariste">
+    	<constructor-arg ref="twoPrepareService"></constructor-arg>
+    	<property name="emailAdress" 		value="${email}"></property>
+    	<property name="webSite" 			value="${site}"></property>
+    </bean>
+    
+    <!-- avec getters/setters (voir la classe Violoniste) -->
+    
+    <bean id="monTroisiemeMusicien" class="com.springdemo.Violoniste">
+    	<property name="service" ref="threePrepareService"></property>
+    </bean>
+   
+</beans>
